@@ -1,3 +1,49 @@
+# 🏦 Flowset Basic Forms — Bank Expense Approval Demo
+
+A Spring Boot + Camunda 7 demo application implementing a **bank expense approval workflow** using Flowset BPM Studio. Employees submit expense requests through a form, which are then reviewed and approved or rejected by a manager.
+
+---
+
+## ⚙️ Technologies
+
+- **Java 21** (JDK 21 LTS)
+- **Spring Boot 3.4.4**
+- **Camunda Platform 7.24.0** (embedded)
+- **Flowset BPM Studio** plugin for IntelliJ IDEA
+- **PostgreSQL 18** (production database)
+- **Maven**
+
+---
+
+## 🗂️ Project Structure
+
+```
+src/
+└── main/
+    ├── java/com/example/workflow/
+    │   └── FormProject003Application.java
+    └── resources/
+        ├── forms/
+        │   ├── submit-form.form       # Employee expense submission form
+        │   └── review-form.form       # Manager review/approval form
+        ├── processes/
+        │   └── form_process.bpmn      # Expense approval BPMN process
+        └── application.properties
+```
+
+---
+
+## 🔄 Process Overview
+
+The expense approval process uses **swim lanes** to organize responsibilities:
+
+```
+[Employee Lane]        [Finance Manager Lane]     [System Lane]
+Start → Submit Form → Review/Confirm Form → Gateway → Approved
+                                                    ↓
+                                                 Rejected
+```
+
 ### BPMN Flow
 - **Start Event** → triggered when an employee starts the process
 - **Submit Task** (User Task, Employee lane) → employee fills in expense details
