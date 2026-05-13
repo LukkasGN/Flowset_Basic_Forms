@@ -1,0 +1,194 @@
+{
+  "components": [
+    {
+      "text": "# Review Form",
+      "type": "text",
+      "layout": {
+        "row": "Row_07ccbdu",
+        "columns": null
+      },
+      "id": "Field_0fdczzc"
+    },
+    {
+      "label": "Employee Information",
+      "components": [
+        {
+          "label": "Employee Name",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_1nj1ug0",
+            "columns": null
+          },
+          "id": "Field_134spgi",
+          "key": "employeeName",
+          "validate": {
+            "required": true
+          },
+          "readonly": true
+        },
+        {
+          "label": "Department",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_1nj1ug0",
+            "columns": null
+          },
+          "id": "Field_098131u",
+          "key": "department",
+          "validate": {
+            "required": true
+          },
+          "readonly": true
+        }
+      ],
+      "showOutline": true,
+      "type": "group",
+      "layout": {
+        "row": "Row_05djxpl",
+        "columns": null
+      },
+      "id": "Field_01isk7g"
+    },
+    {
+      "type": "separator",
+      "layout": {
+        "row": "Row_17h81nw",
+        "columns": null
+      },
+      "id": "Field_1gd35ig"
+    },
+    {
+      "label": "Expense Details",
+      "components": [
+        {
+          "label": "Expense Amount",
+          "type": "number",
+          "layout": {
+            "row": "Row_1x9tw0m",
+            "columns": null
+          },
+          "id": "Field_1s0w3iu",
+          "key": "expenseAmount",
+          "validate": {
+            "required": true
+          },
+          "readonly": true
+        },
+        {
+          "label": "Expense Category",
+          "values": [
+            {
+              "label": "Travel",
+              "value": "travel"
+            },
+            {
+              "label": "Supplies",
+              "value": "supplies"
+            },
+            {
+              "label": "Entertainment",
+              "value": "entertainment"
+            },
+            {
+              "label": "Other",
+              "value": "other"
+            }
+          ],
+          "type": "select",
+          "layout": {
+            "row": "Row_1x9tw0m",
+            "columns": null
+          },
+          "id": "Field_0daarli",
+          "key": "expenseCategory",
+          "validate": {
+            "required": true
+          },
+          "readonly": true
+        },
+        {
+          "label": "Justification/Description",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_1x9tw0m",
+            "columns": null
+          },
+          "id": "Field_1d8pdh2",
+          "key": "description",
+          "validate": {
+            "required": true
+          },
+          "readonly": true
+        }
+      ],
+      "showOutline": true,
+      "type": "group",
+      "layout": {
+        "row": "Row_18h157i",
+        "columns": null
+      },
+      "id": "Field_0imemrn"
+    },
+    {
+      "type": "separator",
+      "layout": {
+        "row": "Row_0bfwm46",
+        "columns": null
+      },
+      "id": "Field_0v3g8b6"
+    },
+    {
+      "label": "Review Decision",
+      "components": [
+        {
+          "label": "Decision",
+          "values": [
+            {
+              "label": "Approve",
+              "value": "true"
+            },
+            {
+              "label": "Reject",
+              "value": "false"
+            }
+          ],
+          "type": "select",
+          "layout": {
+            "row": "Row_1uhqu38",
+            "columns": null
+          },
+          "id": "Field_08sly3f",
+          "key": "approved",
+          "validate": {
+            "required": true
+          }
+        },
+        {
+          "label": "Reviewer Comments",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_1uhqu38",
+            "columns": null
+          },
+          "id": "Field_1nx9lw4",
+          "key": "reviewerComments",
+          "validate": {
+            "required": true
+          }
+        }
+      ],
+      "showOutline": true,
+      "type": "group",
+      "layout": {
+        "row": "Row_1w7d210",
+        "columns": null
+      },
+      "id": "Field_19r85cb"
+    }
+  ],
+  "type": "default",
+  "id": "review-form",
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.24.0",
+  "schemaVersion": 19
+}

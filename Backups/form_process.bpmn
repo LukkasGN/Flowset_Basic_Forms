@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <collaboration id="Collaboration_04jwm45">
+    <participant id="Participant_13rttiq" processRef="form_process" />
+  </collaboration>
+  <process id="form_process" name="form_process" isExecutable="true">
+    <laneSet id="LaneSet_161qiz0">
+      <lane id="Lane_1nhwyn9">
+        <flowNodeRef>startEvent1</flowNodeRef>
+        <flowNodeRef>submit_form</flowNodeRef>
+        <flowNodeRef>Activity_0ccbhuv</flowNodeRef>
+      </lane>
+      <lane id="Lane_1bhy1p0">
+        <flowNodeRef>confirm_form</flowNodeRef>
+      </lane>
+      <lane id="Lane_07oei0g">
+        <flowNodeRef>Gateway_02g0g2m</flowNodeRef>
+        <flowNodeRef>approved</flowNodeRef>
+        <flowNodeRef>rejected</flowNodeRef>
+      </lane>
+    </laneSet>
+    <sequenceFlow id="Flow_0t24a2w" sourceRef="startEvent1" targetRef="submit_form" />
+    <sequenceFlow id="Flow_0mxv0ip" sourceRef="submit_form" targetRef="confirm_form" />
+    <sequenceFlow id="Flow_1rp41vy" sourceRef="confirm_form" targetRef="Gateway_02g0g2m" />
+    <sequenceFlow id="Flow_087wglq" sourceRef="Gateway_02g0g2m" targetRef="approved">
+      <conditionExpression xsi:type="tFormalExpression">${approved == true}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_15d16st" sourceRef="Gateway_02g0g2m" targetRef="rejected">
+      <conditionExpression xsi:type="tFormalExpression">${approved == false}</conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Gateway_02g0g2m">
+      <incoming>Flow_1rp41vy</incoming>
+      <outgoing>Flow_087wglq</outgoing>
+      <outgoing>Flow_15d16st</outgoing>
+    </exclusiveGateway>
+    <endEvent id="approved" name="Approved">
+      <incoming>Flow_087wglq</incoming>
+      <terminateEventDefinition id="TerminateEventDefinition_033va4x" />
+    </endEvent>
+    <endEvent id="rejected" name="Rejected">
+      <incoming>Flow_15d16st</incoming>
+      <terminateEventDefinition id="TerminateEventDefinition_0xvs1l2" />
+    </endEvent>
+    <userTask id="confirm_form" name="Confirm" camunda:formRef="review-form" camunda:formRefBinding="latest" camunda:candidateGroups="managers">
+      <incoming>Flow_0mxv0ip</incoming>
+      <outgoing>Flow_1rp41vy</outgoing>
+    </userTask>
+    <startEvent id="startEvent1" camunda:initiator="initiator">
+      <outgoing>Flow_0t24a2w</outgoing>
+    </startEvent>
+    <userTask id="submit_form" name="Submit" camunda:formRef="submit-form" camunda:formRefBinding="latest" camunda:candidateGroups="employees">
+      <incoming>Flow_0t24a2w</incoming>
+      <outgoing>Flow_0mxv0ip</outgoing>
+    </userTask>
+    <scriptTask id="Activity_0ccbhuv" scriptFormat="javascript">
+      <script></script>
+    </scriptTask>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_process">
+    <bpmndi:BPMNPlane id="BPMNPlane_process" bpmnElement="Collaboration_04jwm45">
+      <bpmndi:BPMNShape id="Participant_13rttiq_di" bpmnElement="Participant_13rttiq" isHorizontal="true">
+        <omgdc:Bounds x="-92" y="169" width="882" height="971" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1nhwyn9_di" bpmnElement="Lane_1nhwyn9" isHorizontal="true">
+        <omgdc:Bounds x="-62" y="169" width="852" height="295" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1bhy1p0_di" bpmnElement="Lane_1bhy1p0" isHorizontal="true">
+        <omgdc:Bounds x="-62" y="464" width="852" height="295" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_07oei0g_di" bpmnElement="Lane_07oei0g" isHorizontal="true">
+        <omgdc:Bounds x="-62" y="759" width="852" height="381" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1j9i6tl" bpmnElement="Gateway_02g0g2m" isMarkerVisible="true">
+        <omgdc:Bounds x="315" y="905" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1w06rtf" bpmnElement="approved">
+        <omgdc:Bounds x="462" y="912" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="457" y="955" width="47" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1a4mq1z" bpmnElement="rejected">
+        <omgdc:Bounds x="322" y="1042" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="318" y="1088" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0d75o00" bpmnElement="confirm_form">
+        <omgdc:Bounds x="290" y="570" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0mw6bav" bpmnElement="startEvent1">
+        <omgdc:Bounds x="102" y="282" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_02vzt7o" bpmnElement="submit_form">
+        <omgdc:Bounds x="290" y="260" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0r0240f_di" bpmnElement="Activity_0ccbhuv">
+        <omgdc:Bounds x="540" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_13efvdd" bpmnElement="Flow_0t24a2w">
+        <omgdi:waypoint x="138" y="300" />
+        <omgdi:waypoint x="290" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_01n2mr2" bpmnElement="Flow_0mxv0ip">
+        <omgdi:waypoint x="340" y="340" />
+        <omgdi:waypoint x="340" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_0346xrs" bpmnElement="Flow_1rp41vy">
+        <omgdi:waypoint x="340" y="650" />
+        <omgdi:waypoint x="340" y="905" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_0669udb" bpmnElement="Flow_087wglq">
+        <omgdi:waypoint x="365" y="930" />
+        <omgdi:waypoint x="462" y="930" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_07ybudt" bpmnElement="Flow_15d16st">
+        <omgdi:waypoint x="340" y="955" />
+        <omgdi:waypoint x="340" y="1042" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
