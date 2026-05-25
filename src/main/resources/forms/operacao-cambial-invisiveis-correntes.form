@@ -786,6 +786,56 @@
       },
       "id": "Field_110mr6s",
       "path": "dynamiclist_uti9m3"
+    },
+    {
+      "label": "Comentário",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_05s3wvl",
+        "columns": null
+      },
+      "id": "Field_0p2qd6m",
+      "key": "comentario"
+    },
+    {
+      "label": "Cancelar",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_03st1rj",
+        "columns": null
+      },
+      "id": "Field_0ulvxgy"
+    },
+    {
+      "label": "Voltar",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_03st1rj",
+        "columns": 2
+      },
+      "id": "Field_0o1fx46"
+    },
+    {
+      "label": "Gravar",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_03st1rj",
+        "columns": 2
+      },
+      "id": "Field_105dvdj"
+    },
+    {
+      "label": "Criar Processo",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_03st1rj",
+        "columns": 2
+      },
+      "id": "Field_0dbfg1y"
     }
   ],
   "type": "default",

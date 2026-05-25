@@ -213,6 +213,46 @@
       },
       "id": "Field_1r9i4g5",
       "path": "dynamiclist_bkk08a"
+    },
+    {
+      "label": "Cancelar",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_02diivo",
+        "columns": null
+      },
+      "id": "Field_0nuxbvm"
+    },
+    {
+      "label": "Voltar",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_02diivo",
+        "columns": 2
+      },
+      "id": "Field_1lc16g8"
+    },
+    {
+      "label": "Gravar",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_02diivo",
+        "columns": 2
+      },
+      "id": "Field_04bh5yg"
+    },
+    {
+      "label": "Criar Processo",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_02diivo",
+        "columns": 2
+      },
+      "id": "Field_0bzdvxg"
     }
   ],
   "type": "default",
