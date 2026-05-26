@@ -839,7 +839,7 @@
     }
   ],
   "type": "default",
-  "id": "operacao-cambial",
+  "id": "form-operacao-cambial-invisiveis-correntes",
   "executionPlatform": "Camunda Platform",
   "executionPlatformVersion": "7.24.0",
   "schemaVersion": 19
