@@ -5,7 +5,7 @@
       <outgoing>Flow_1pjih8a</outgoing>
     </startEvent>
     <sequenceFlow id="Flow_1pjih8a" sourceRef="startEvent1" targetRef="inicio_operacao_cambial" />
-    <userTask id="inicio_operacao_cambial" name="Inicio operação Cambial" camunda:formRef="form-operacao-cambial" camunda:formRefBinding="latest" camunda:candidateGroups="employees">
+    <userTask id="inicio_operacao_cambial" name="Inicio operação Cambial" camunda:formRef="form-operacao-cambial" camunda:formRefBinding="latest" camunda:candidateGroups="tecnicos">
       <incoming>Flow_1pjih8a</incoming>
       <outgoing>Flow_03kqgeg</outgoing>
     </userTask>
@@ -15,24 +15,24 @@
       <outgoing>Flow_041fcox</outgoing>
     </exclusiveGateway>
     <sequenceFlow id="Flow_03kqgeg" sourceRef="inicio_operacao_cambial" targetRef="Gateway_1ac030k" />
-    <sequenceFlow id="Flow_0ue9h1e" sourceRef="Gateway_1ac030k" targetRef="inicio_invisiveis_correntes">
+    <sequenceFlow id="Flow_0ue9h1e" name="If Invisíveis Correntes" sourceRef="Gateway_1ac030k" targetRef="inicio_invisiveis_correntes">
       <conditionExpression xsi:type="tFormalExpression">${tipo_de_operacao == "invisiveis_correntes"}</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="Flow_041fcox" sourceRef="Gateway_1ac030k" targetRef="Activity_0ojvtay" />
+    <sequenceFlow id="Flow_041fcox" name="If Mercadoria" sourceRef="Gateway_1ac030k" targetRef="Activity_0ojvtay" />
     <sequenceFlow id="Flow_0qxl7uh" sourceRef="Activity_0ojvtay" targetRef="Activity_1xgotiu" />
     <sequenceFlow id="Flow_0rynlxg" sourceRef="inicio_invisiveis_correntes" targetRef="Activity_0svu4pl" />
-    <userTask id="inicio_invisiveis_correntes" name="Inicio Invisíveis Correntes" camunda:formRef="form-operacao-cambial-invisiveis-correntes" camunda:formRefBinding="latest">
+    <userTask id="inicio_invisiveis_correntes" name="Inicio Invisíveis Correntes" camunda:formRef="form-operacao-cambial-invisiveis-correntes" camunda:formRefBinding="latest" camunda:candidateGroups="tecnicos">
       <incoming>Flow_0ue9h1e</incoming>
       <outgoing>Flow_0rynlxg</outgoing>
     </userTask>
-    <userTask id="Activity_0ojvtay">
+    <userTask id="Activity_0ojvtay" name="Início Mercadoria">
       <incoming>Flow_041fcox</incoming>
       <outgoing>Flow_0qxl7uh</outgoing>
     </userTask>
-    <userTask id="Activity_1xgotiu">
+    <userTask id="Activity_1xgotiu" name="Análise Mercadoria">
       <incoming>Flow_0qxl7uh</incoming>
     </userTask>
-    <userTask id="Activity_0svu4pl">
+    <userTask id="Activity_0svu4pl" name="Análise I.C.">
       <incoming>Flow_0rynlxg</incoming>
     </userTask>
   </process>
@@ -54,12 +54,15 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_021us7n_di" bpmnElement="Activity_0ojvtay">
         <omgdc:Bounds x="570" y="300" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_18i0b5b_di" bpmnElement="Activity_1xgotiu">
         <omgdc:Bounds x="570" y="490" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_12v8skc_di" bpmnElement="Activity_0svu4pl">
         <omgdc:Bounds x="800" y="490" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1pjih8a_di" bpmnElement="Flow_1pjih8a">
         <omgdi:waypoint x="186" y="168" />
@@ -72,10 +75,16 @@
       <bpmndi:BPMNEdge id="Flow_0ue9h1e_di" bpmnElement="Flow_0ue9h1e">
         <omgdi:waypoint x="645" y="168" />
         <omgdi:waypoint x="800" y="168" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="695" y="150" width="56" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_041fcox_di" bpmnElement="Flow_041fcox">
         <omgdi:waypoint x="620" y="193" />
         <omgdi:waypoint x="620" y="300" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="603" y="244" width="65" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0qxl7uh_di" bpmnElement="Flow_0qxl7uh">
         <omgdi:waypoint x="620" y="380" />

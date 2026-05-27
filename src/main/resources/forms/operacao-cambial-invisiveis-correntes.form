@@ -185,7 +185,7 @@
             "columns": null
           },
           "id": "Field_0lkynqk",
-          "key": "tipo_de_operação",
+          "key": "tipo_de_operacao",
           "validate": {
             "required": true
           }
@@ -667,7 +667,7 @@
             "columns": null
           },
           "id": "Field_17kubcf",
-          "key": "data_liquidação",
+          "key": "data_liquidacao",
           "validate": {
             "required": true
           }
@@ -717,7 +717,9 @@
             "columns": null
           },
           "label": "Checklist Documental",
+          "dataSource": "=Field_0lbuz1y",
           "rowCount": 10,
+          "id": "Field_0lbuz1y",
           "columns": [
             {
               "label": "Anexado",
@@ -735,9 +737,7 @@
               "label": "Obrigatório",
               "key": "obrigatorio"
             }
-          ],
-          "id": "Field_0lbuz1y",
-          "dataSource": "=Field_0lbuz1y"
+          ]
         },
         {
           "label": "Anexar Documento",
@@ -756,7 +756,9 @@
             "columns": null
           },
           "label": "Documentos Anexados",
+          "dataSource": "=Field_146pu8j",
           "rowCount": 10,
+          "id": "Field_146pu8j",
           "columns": [
             {
               "label": "Nome do Documento",
@@ -770,9 +772,7 @@
               "label": "Tamanho",
               "key": "tamanho"
             }
-          ],
-          "id": "Field_146pu8j",
-          "dataSource": "=Field_146pu8j"
+          ]
         }
       ],
       "showOutline": true,
