@@ -1,90 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
   <process id="processo_operacao_cambial" name="processo_operacao_cambial" isExecutable="true" camunda:versionTag="1.0.0" camunda:historyTimeToLive="P180D">
+    <exclusiveGateway id="Gateway_0o2uqk1">
+      <incoming>Flow_1w512ni</incoming>
+      <outgoing>Flow_0s9w502</outgoing>
+      <outgoing>Flow_10lhzu8</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="Flow_0s9w502" name="Aprovar" sourceRef="Gateway_0o2uqk1" targetRef="Event_124f12n">
+      <conditionExpression xsi:type="tFormalExpression">${aprovado == true}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_10lhzu8" name="Rejeitar" sourceRef="Gateway_0o2uqk1" targetRef="inicio_invisiveis_correntes">
+      <conditionExpression xsi:type="tFormalExpression">${aprovado == false}</conditionExpression>
+    </sequenceFlow>
+    <userTask id="Activity_0svu4pl" name="Análise I.C." camunda:formRef="analista-form-operacao-cambial-invisiveis-correntes" camunda:formRefBinding="latest" camunda:candidateGroups="analistas">
+      <incoming>Flow_0rynlxg</incoming>
+      <outgoing>Flow_1w512ni</outgoing>
+    </userTask>
+    <sequenceFlow id="Flow_1w512ni" sourceRef="Activity_0svu4pl" targetRef="Gateway_0o2uqk1" />
+    <userTask id="Activity_1xgotiu" name="Análise Mercadoria">
+      <incoming>Flow_0qxl7uh</incoming>
+      <outgoing>Flow_0w7yvd9</outgoing>
+    </userTask>
+    <userTask id="Activity_0ojvtay" name="Início Mercadoria">
+      <incoming>Flow_041fcox</incoming>
+      <incoming>Flow_13uk5as</incoming>
+      <outgoing>Flow_0qxl7uh</outgoing>
+      <outgoing>Flow_122mjly</outgoing>
+    </userTask>
+    <sequenceFlow id="Flow_0qxl7uh" sourceRef="Activity_0ojvtay" targetRef="Activity_1xgotiu">
+      <conditionExpression xsi:type="tFormalExpression">${voltar != true}</conditionExpression>
+    </sequenceFlow>
+    <userTask id="inicio_invisiveis_correntes" name="Inicio Invisíveis Correntes" camunda:formRef="form-operacao-cambial-invisiveis-correntes" camunda:formRefBinding="latest" camunda:candidateGroups="tecnicos">
+      <incoming>Flow_10lhzu8</incoming>
+      <incoming>Flow_0ue9h1e</incoming>
+      <outgoing>Flow_0rynlxg</outgoing>
+      <outgoing>Flow_18yafsv</outgoing>
+    </userTask>
+    <sequenceFlow id="Flow_0rynlxg" sourceRef="inicio_invisiveis_correntes" targetRef="Activity_0svu4pl">
+      <conditionExpression xsi:type="tFormalExpression">${voltar != true}</conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="Gateway_1ac030k">
+      <incoming>Flow_03kqgeg</incoming>
+      <outgoing>Flow_041fcox</outgoing>
+      <outgoing>Flow_0ue9h1e</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="Flow_041fcox" name="If Mercadoria" sourceRef="Gateway_1ac030k" targetRef="Activity_0ojvtay">
+      <conditionExpression xsi:type="tFormalExpression">${tipo_de_operacao == "mercadoria"}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_0ue9h1e" name="If Invisíveis Correntes" sourceRef="Gateway_1ac030k" targetRef="inicio_invisiveis_correntes">
+      <conditionExpression xsi:type="tFormalExpression">${tipo_de_operacao == "invisiveis_correntes"}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_18yafsv" name="Voltar" sourceRef="inicio_invisiveis_correntes" targetRef="inicio_operacao_cambial">
+      <conditionExpression xsi:type="tFormalExpression">${voltar == true}</conditionExpression>
+    </sequenceFlow>
+    <userTask id="inicio_operacao_cambial" name="Inicio operação Cambial" camunda:formRef="form-operacao-cambial" camunda:formRefBinding="latest" camunda:candidateGroups="tecnicos">
+      <incoming>Flow_18yafsv</incoming>
+      <incoming>Flow_1pjih8a</incoming>
+      <incoming>Flow_122mjly</incoming>
+      <outgoing>Flow_03kqgeg</outgoing>
+    </userTask>
+    <sequenceFlow id="Flow_03kqgeg" sourceRef="inicio_operacao_cambial" targetRef="Gateway_1ac030k" />
     <startEvent id="startEvent1">
       <outgoing>Flow_1pjih8a</outgoing>
     </startEvent>
     <sequenceFlow id="Flow_1pjih8a" sourceRef="startEvent1" targetRef="inicio_operacao_cambial" />
-    <userTask id="inicio_operacao_cambial" name="Inicio operação Cambial" camunda:formRef="form-operacao-cambial" camunda:formRefBinding="latest" camunda:candidateGroups="tecnicos">
-      <incoming>Flow_1pjih8a</incoming>
-      <outgoing>Flow_03kqgeg</outgoing>
-    </userTask>
-    <exclusiveGateway id="Gateway_1ac030k">
-      <incoming>Flow_03kqgeg</incoming>
-      <outgoing>Flow_0ue9h1e</outgoing>
-      <outgoing>Flow_041fcox</outgoing>
+    <exclusiveGateway id="Gateway_0bxtn17">
+      <incoming>Flow_0w7yvd9</incoming>
+      <outgoing>Flow_0aqfand</outgoing>
+      <outgoing>Flow_13uk5as</outgoing>
     </exclusiveGateway>
-    <sequenceFlow id="Flow_03kqgeg" sourceRef="inicio_operacao_cambial" targetRef="Gateway_1ac030k" />
-    <sequenceFlow id="Flow_0ue9h1e" name="If Invisíveis Correntes" sourceRef="Gateway_1ac030k" targetRef="inicio_invisiveis_correntes">
-      <conditionExpression xsi:type="tFormalExpression">${tipo_de_operacao == "invisiveis_correntes"}</conditionExpression>
+    <sequenceFlow id="Flow_0w7yvd9" sourceRef="Activity_1xgotiu" targetRef="Gateway_0bxtn17" />
+    <sequenceFlow id="Flow_0aqfand" name="Aprovar" sourceRef="Gateway_0bxtn17" targetRef="Event_1t8b11s">
+      <conditionExpression xsi:type="tFormalExpression">${true}</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="Flow_041fcox" name="If Mercadoria" sourceRef="Gateway_1ac030k" targetRef="Activity_0ojvtay" />
-    <sequenceFlow id="Flow_0qxl7uh" sourceRef="Activity_0ojvtay" targetRef="Activity_1xgotiu" />
-    <sequenceFlow id="Flow_0rynlxg" sourceRef="inicio_invisiveis_correntes" targetRef="Activity_0svu4pl" />
-    <userTask id="inicio_invisiveis_correntes" name="Inicio Invisíveis Correntes" camunda:formRef="form-operacao-cambial-invisiveis-correntes" camunda:formRefBinding="latest" camunda:candidateGroups="tecnicos">
-      <incoming>Flow_0ue9h1e</incoming>
-      <outgoing>Flow_0rynlxg</outgoing>
-    </userTask>
-    <userTask id="Activity_0ojvtay" name="Início Mercadoria">
-      <incoming>Flow_041fcox</incoming>
-      <outgoing>Flow_0qxl7uh</outgoing>
-    </userTask>
-    <userTask id="Activity_1xgotiu" name="Análise Mercadoria">
-      <incoming>Flow_0qxl7uh</incoming>
-    </userTask>
-    <userTask id="Activity_0svu4pl" name="Análise I.C.">
-      <incoming>Flow_0rynlxg</incoming>
-    </userTask>
+    <sequenceFlow id="Flow_13uk5as" name="Rejeitar" sourceRef="Gateway_0bxtn17" targetRef="Activity_0ojvtay" />
+    <sequenceFlow id="Flow_122mjly" name="Voltar" sourceRef="Activity_0ojvtay" targetRef="inicio_operacao_cambial">
+      <conditionExpression xsi:type="tFormalExpression">${voltar == true}</conditionExpression>
+    </sequenceFlow>
+    <endEvent id="Event_1t8b11s">
+      <incoming>Flow_0aqfand</incoming>
+      <terminateEventDefinition id="TerminateEventDefinition_0t5ugfg" />
+    </endEvent>
+    <endEvent id="Event_124f12n">
+      <incoming>Flow_0s9w502</incoming>
+      <terminateEventDefinition id="TerminateEventDefinition_0gb7lso" />
+    </endEvent>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_process">
     <bpmndi:BPMNPlane id="BPMNPlane_process" bpmnElement="processo_operacao_cambial">
-      <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent1">
-        <omgdc:Bounds x="150" y="150" width="36" height="36" />
+      <bpmndi:BPMNShape id="Gateway_0o2uqk1_di" bpmnElement="Gateway_0o2uqk1" isMarkerVisible="true">
+        <omgdc:Bounds x="825" y="645" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0qzwint_di" bpmnElement="inicio_operacao_cambial">
-        <omgdc:Bounds x="340" y="128" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1ac030k_di" bpmnElement="Gateway_1ac030k" isMarkerVisible="true">
-        <omgdc:Bounds x="595" y="143" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1ibzecm_di" bpmnElement="inicio_invisiveis_correntes">
-        <omgdc:Bounds x="800" y="128" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_021us7n_di" bpmnElement="Activity_0ojvtay">
-        <omgdc:Bounds x="570" y="300" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_12v8skc_di" bpmnElement="Activity_0svu4pl">
+        <omgdc:Bounds x="800" y="490" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_18i0b5b_di" bpmnElement="Activity_1xgotiu">
         <omgdc:Bounds x="570" y="490" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_12v8skc_di" bpmnElement="Activity_0svu4pl">
-        <omgdc:Bounds x="800" y="490" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_021us7n_di" bpmnElement="Activity_0ojvtay">
+        <omgdc:Bounds x="570" y="300" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1pjih8a_di" bpmnElement="Flow_1pjih8a">
-        <omgdi:waypoint x="186" y="168" />
-        <omgdi:waypoint x="340" y="168" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_03kqgeg_di" bpmnElement="Flow_03kqgeg">
-        <omgdi:waypoint x="440" y="168" />
-        <omgdi:waypoint x="595" y="168" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0ue9h1e_di" bpmnElement="Flow_0ue9h1e">
-        <omgdi:waypoint x="645" y="168" />
-        <omgdi:waypoint x="800" y="168" />
+      <bpmndi:BPMNShape id="Activity_1ibzecm_di" bpmnElement="inicio_invisiveis_correntes">
+        <omgdc:Bounds x="800" y="128" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1ac030k_di" bpmnElement="Gateway_1ac030k" isMarkerVisible="true">
+        <omgdc:Bounds x="595" y="143" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qzwint_di" bpmnElement="inicio_operacao_cambial">
+        <omgdc:Bounds x="340" y="128" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent1">
+        <omgdc:Bounds x="150" y="150" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0bxtn17_di" bpmnElement="Gateway_0bxtn17" isMarkerVisible="true">
+        <omgdc:Bounds x="595" y="645" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rxoj3n_di" bpmnElement="Event_1t8b11s">
+        <omgdc:Bounds x="602" y="772" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_14cbvxb_di" bpmnElement="Event_124f12n">
+        <omgdc:Bounds x="832" y="772" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0s9w502_di" bpmnElement="Flow_0s9w502">
+        <omgdi:waypoint x="850" y="695" />
+        <omgdi:waypoint x="850" y="772" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="695" y="150" width="56" height="27" />
+          <omgdc:Bounds x="860" y="723" width="39" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_041fcox_di" bpmnElement="Flow_041fcox">
-        <omgdi:waypoint x="620" y="193" />
-        <omgdi:waypoint x="620" y="300" />
+      <bpmndi:BPMNEdge id="Flow_10lhzu8_di" bpmnElement="Flow_10lhzu8">
+        <omgdi:waypoint x="875" y="670" />
+        <omgdi:waypoint x="1020" y="670" />
+        <omgdi:waypoint x="1020" y="168" />
+        <omgdi:waypoint x="900" y="168" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="603" y="244" width="65" height="14" />
+          <omgdc:Bounds x="1040" y="416" width="40" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w512ni_di" bpmnElement="Flow_1w512ni">
+        <omgdi:waypoint x="850" y="570" />
+        <omgdi:waypoint x="850" y="645" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0qxl7uh_di" bpmnElement="Flow_0qxl7uh">
         <omgdi:waypoint x="620" y="380" />
@@ -93,6 +153,65 @@
       <bpmndi:BPMNEdge id="Flow_0rynlxg_di" bpmnElement="Flow_0rynlxg">
         <omgdi:waypoint x="850" y="208" />
         <omgdi:waypoint x="850" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_041fcox_di" bpmnElement="Flow_041fcox">
+        <omgdi:waypoint x="620" y="193" />
+        <omgdi:waypoint x="620" y="300" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="627" y="244" width="65" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ue9h1e_di" bpmnElement="Flow_0ue9h1e">
+        <omgdi:waypoint x="645" y="168" />
+        <omgdi:waypoint x="800" y="168" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="695" y="136" width="57" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18yafsv_di" bpmnElement="Flow_18yafsv">
+        <omgdi:waypoint x="850" y="128" />
+        <omgdi:waypoint x="850" y="60" />
+        <omgdi:waypoint x="390" y="60" />
+        <omgdi:waypoint x="390" y="128" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="606" y="42" width="29" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03kqgeg_di" bpmnElement="Flow_03kqgeg">
+        <omgdi:waypoint x="440" y="168" />
+        <omgdi:waypoint x="595" y="168" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pjih8a_di" bpmnElement="Flow_1pjih8a">
+        <omgdi:waypoint x="186" y="168" />
+        <omgdi:waypoint x="340" y="168" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0w7yvd9_di" bpmnElement="Flow_0w7yvd9">
+        <omgdi:waypoint x="620" y="570" />
+        <omgdi:waypoint x="620" y="645" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0aqfand_di" bpmnElement="Flow_0aqfand">
+        <omgdi:waypoint x="620" y="695" />
+        <omgdi:waypoint x="620" y="772" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="630" y="723" width="39" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13uk5as_di" bpmnElement="Flow_13uk5as">
+        <omgdi:waypoint x="595" y="670" />
+        <omgdi:waypoint x="490" y="670" />
+        <omgdi:waypoint x="490" y="360" />
+        <omgdi:waypoint x="570" y="360" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="429" y="512" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_122mjly_di" bpmnElement="Flow_122mjly">
+        <omgdi:waypoint x="570" y="340" />
+        <omgdi:waypoint x="390" y="340" />
+        <omgdi:waypoint x="390" y="208" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="465" y="323" width="29" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

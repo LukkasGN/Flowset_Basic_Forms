@@ -60,4 +60,16 @@ public class AccountController {
             );
         }
     }
+    @GetMapping("/suggest")
+    public ResponseEntity<?> suggestAccounts(@RequestParam("query") String query) {
+        try {
+            List<Map<String, Object>> accounts = jdbcTemplate.queryForList(
+                    "SELECT account_number, nome FROM bank_accounts WHERE account_number ILIKE ? OR nome ILIKE ? LIMIT 5",
+                    "%" + query + "%", "%" + query + "%"
+            );
+            return ResponseEntity.ok(accounts);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("error", "Erro ao pesquisar contas"));
+        }
+    }
 }

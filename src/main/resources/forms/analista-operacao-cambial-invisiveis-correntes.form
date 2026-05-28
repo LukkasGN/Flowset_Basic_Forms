@@ -239,7 +239,8 @@
           "key": "n_operacao",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "№ Contrato BNA",
@@ -252,7 +253,8 @@
           "key": "n_contrato",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Referência do Banco",
@@ -277,7 +279,8 @@
           "key": "nome_requerente",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Residência Cambial",
@@ -296,7 +299,8 @@
           "key": "residencia_cambial",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "CAE",
@@ -315,7 +319,8 @@
           "key": "cae",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Entidade Petrolifera",
@@ -334,10 +339,11 @@
           "key": "entidade_petrolifera",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
-          "label": "Tipo De Dívida",
+          "label": "Tipo de Dívida",
           "values": [
             {
               "label": "Value",
@@ -350,7 +356,8 @@
             "columns": null
           },
           "id": "Field_1uyndtp",
-          "key": "tipo_divida"
+          "key": "tipo_divida",
+          "readonly": true
         },
         {
           "label": "Nome do Beneficiário",
@@ -363,7 +370,8 @@
           "key": "nome_beneficiario",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Referência Swift / Banco Beneficiário",
@@ -382,7 +390,8 @@
           "key": "select_9t5m27",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Inserir Banco",
@@ -405,7 +414,8 @@
           "key": "n_conta_IBAN",
           "validate": {
             "required": false
-          }
+          },
+          "readonly": true
         }
       ],
       "showOutline": true,
@@ -440,7 +450,8 @@
           "key": "finalidade",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Descrição da Finalidade",
@@ -459,7 +470,8 @@
           "key": "descricao_finalidade",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Detalhe da Finalidade",
@@ -478,7 +490,8 @@
           "key": "detalhe_finalidade",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Objectivo da Operação",
@@ -497,7 +510,8 @@
           "key": "objetivo_operacao",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Cobertura Cambial",
@@ -516,7 +530,8 @@
           "key": "cobertura_cambial",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Despesas",
@@ -535,7 +550,8 @@
           "key": "despesas",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Morada do Beneficiário",
@@ -545,7 +561,8 @@
             "columns": null
           },
           "id": "Field_0cldd7j",
-          "key": "morada_beneficiario"
+          "key": "morada_beneficiario",
+          "readonly": true
         },
         {
           "label": "Moeda",
@@ -564,7 +581,8 @@
           "key": "moeda",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Montante da Operação",
@@ -574,7 +592,8 @@
             "columns": null
           },
           "id": "Field_0fk9mjr",
-          "key": "montante"
+          "key": "montante",
+          "readonly": true
         },
         {
           "label": "Taxa de Câmbio",
@@ -595,7 +614,8 @@
             "columns": null
           },
           "id": "Field_0pm918w",
-          "key": "taxa_cambio_negociada"
+          "key": "taxa_cambio_negociada",
+          "readonly": true
         },
         {
           "label": "País Destino",
@@ -614,7 +634,8 @@
           "key": "pais_destino",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Instrumento de Pagamento",
@@ -633,7 +654,8 @@
           "key": "intrumento_pagamento",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "№ de Factura",
@@ -646,7 +668,8 @@
           "key": "n_factura",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Data de Emissão de Factura",
@@ -659,7 +682,8 @@
           "key": "data_factura",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Data Liquidação",
@@ -672,7 +696,8 @@
           "key": "data_liquidacao",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         },
         {
           "label": "Data Documentação Completa",
@@ -685,7 +710,8 @@
           "key": "data_documentacao_completa",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": true
         }
       ],
       "showOutline": true,
@@ -800,48 +826,30 @@
       "key": "comentario"
     },
     {
-      "label": "Cancelar",
+      "label": "Aprovar",
       "action": "submit",
       "type": "button",
       "layout": {
-        "row": "Row_03st1rj",
-        "columns": null
-      },
-      "id": "Field_0ulvxgy"
-    },
-    {
-      "label": "Voltar",
-      "action": "submit",
-      "type": "button",
-      "layout": {
-        "row": "Row_03st1rj",
+        "row": "Row_1ge90bo",
         "columns": 2
       },
-      "id": "Field_0o1fx46"
+      "id": "Field_184c0uh",
+      "properties": {}
     },
     {
-      "label": "Gravar",
+      "label": "Rejeitar",
       "action": "submit",
       "type": "button",
       "layout": {
-        "row": "Row_03st1rj",
+        "row": "Row_1ge90bo",
         "columns": 2
       },
-      "id": "Field_105dvdj"
-    },
-    {
-      "label": "Criar Processo",
-      "action": "submit",
-      "type": "button",
-      "layout": {
-        "row": "Row_03st1rj",
-        "columns": 2
-      },
-      "id": "Field_0dbfg1y"
+      "id": "Field_0nexpcm",
+      "properties": {}
     }
   ],
   "type": "default",
-  "id": "form-operacao-cambial-invisiveis-correntes",
+  "id": "analista-form-operacao-cambial-invisiveis-correntes",
   "executionPlatform": "Camunda Platform",
   "executionPlatformVersion": "7.24.0",
   "schemaVersion": 19
