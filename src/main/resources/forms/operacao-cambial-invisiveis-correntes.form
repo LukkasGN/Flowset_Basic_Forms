@@ -340,8 +340,12 @@
           "label": "Tipo De Dívida",
           "values": [
             {
-              "label": "Value",
-              "value": "value"
+              "label": "Dívida Particular",
+              "value": "dívidaParticular"
+            },
+            {
+              "label": "Dívida Comercial",
+              "value": "dividaComercial"
             }
           ],
           "type": "select",

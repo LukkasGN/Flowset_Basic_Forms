@@ -72,4 +72,35 @@ public class AccountController {
             return ResponseEntity.status(500).body(Map.of("error", "Erro ao pesquisar contas"));
         }
     }
+
+    @GetMapping("/options/{tableName}")
+    public ResponseEntity<?> getOptions(@PathVariable("tableName") String tableName) {
+        // Whitelist to prevent SQL injection
+        List<String> allowed = List.of(
+                "finalidade", "descricao_finalidade", "detalhe_finalidade",
+                "objetivo_operacao", "cobertura_cambial", "despesas",
+                "moeda", "pais_destino", "instrumento_pagamento",
+                "residencia_cambial", "cae", "entidade_petrolifera",
+                "banco_beneficiario"
+        );
+
+        if (!allowed.contains(tableName)) {
+            return ResponseEntity.status(400).body(Map.of("error", "Tabela não permitida"));
+        }
+
+        try {
+            List<Map<String, Object>> rows = jdbcTemplate.queryForList(
+                    "SELECT valor, label FROM " + tableName + " ORDER BY label"
+            );
+            List<Map<String, String>> options = rows.stream()
+                    .map(row -> Map.of(
+                            "label", row.get("label").toString(),
+                            "value", row.get("valor").toString()
+                    ))
+                    .toList();
+            return ResponseEntity.ok(options);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("error", "Erro ao carregar opções"));
+        }
+    }
 }
