@@ -136,7 +136,7 @@
           "type": "button",
           "layout": {
             "row": "Row_06dkb2m",
-            "columns": 2
+            "columns": null
           },
           "id": "Field_00r0nig"
         },
@@ -215,15 +215,6 @@
       },
       "id": "Field_1r9i4g5",
       "path": "dynamiclist_bkk08a"
-    },
-    {
-      "height": 60,
-      "type": "spacer",
-      "layout": {
-        "row": "Row_03dj7m6",
-        "columns": null
-      },
-      "id": "Field_0do91dj"
     },
     {
       "label": "Detalhe da Operação Cambial",
@@ -370,7 +361,7 @@
           }
         },
         {
-          "label": "Referência Swift / Banco Beneficiário",
+          "label": "Swift / Banco Beneficiário",
           "values": [
             {
               "label": "referencia_banco1",
@@ -394,7 +385,7 @@
           "type": "button",
           "layout": {
             "row": "Row_1lntupn",
-            "columns": 2
+            "columns": null
           },
           "id": "Field_1aiv3l1"
         },
@@ -578,7 +569,8 @@
             "columns": null
           },
           "id": "Field_0fk9mjr",
-          "key": "montante"
+          "key": "montante",
+          "defaultValue": 0
         },
         {
           "label": "Taxa de Câmbio",
@@ -599,7 +591,8 @@
             "columns": null
           },
           "id": "Field_0pm918w",
-          "key": "taxa_cambio_negociada"
+          "key": "taxa_cambio_negociada",
+          "defaultValue": 0
         },
         {
           "label": "País Destino",
@@ -679,7 +672,7 @@
           }
         },
         {
-          "label": "Data Documentação Completa",
+          "label": "Data Documentação",
           "type": "textfield",
           "layout": {
             "row": "Row_05yyolt",
@@ -703,15 +696,6 @@
       },
       "id": "Field_0k71wdh",
       "path": "dynamiclist_43h3s"
-    },
-    {
-      "height": 60,
-      "type": "spacer",
-      "layout": {
-        "row": "Row_0o5btdv",
-        "columns": null
-      },
-      "id": "Field_1uch7qk"
     },
     {
       "label": "Documentos",

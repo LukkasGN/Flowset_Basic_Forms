@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -15,6 +17,47 @@ public class AccountController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @GetMapping("/options-prioritized/{tableName}")
+    public ResponseEntity<?> getPrioritizedOptions(@PathVariable("tableName") String tableName) {
+        List<String> allowed = List.of("moeda", "pais_destino");
+
+        if (!allowed.contains(tableName)) {
+            return ResponseEntity.status(400).body(Map.of("error", "Tabela não permitida"));
+        }
+
+        try {
+            // Top priority items first
+            List<Map<String, Object>> top = jdbcTemplate.queryForList(
+                    "SELECT valor, label FROM " + tableName + " WHERE priority < 99 ORDER BY priority"
+            );
+            // Rest alphabetically
+            List<Map<String, Object>> rest = jdbcTemplate.queryForList(
+                    "SELECT valor, label FROM " + tableName + " WHERE priority = 99 ORDER BY label"
+            );
+
+            List<Map<String, String>> result = new ArrayList<>();
+
+            top.forEach(row -> result.add(Map.of(
+                    "label", row.get("label").toString(),
+                    "value", row.get("valor").toString(),
+                    "group", "top"
+            )));
+
+            // Separator marker
+            result.add(Map.of("label", "─────────────", "value", "__separator__", "group", "separator"));
+
+            rest.forEach(row -> result.add(Map.of(
+                    "label", row.get("label").toString(),
+                    "value", row.get("valor").toString(),
+                    "group", "rest"
+            )));
+
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("error", "Erro ao carregar opções"));
+        }
+    }
 
     @GetMapping("/search")
     public ResponseEntity<?> searchAccount(@RequestParam("accountNumber") String accountNumber) {
@@ -90,7 +133,7 @@ public class AccountController {
 
         try {
             List<Map<String, Object>> rows = jdbcTemplate.queryForList(
-                    "SELECT valor, label FROM " + tableName + " ORDER BY label"
+                    "SELECT valor, label FROM " + tableName + " ORDER BY id"
             );
             List<Map<String, String>> options = rows.stream()
                     .map(row -> Map.of(
